@@ -1,13 +1,14 @@
-# Gene Expression Cancer Detection
+# gene-cancer-detection
 
-[![GitHub stars](https://img.shields.io/github/stars/Ismat-Samadov/gene-cancer-detection)](https://github.com/Ismat-Samadov/gene-cancer-detection/stargazers)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/Ismat-Samadov/gene-cancer-detection)](https://github.com/Ismat-Samadov/gene-cancer-detection/stargazers) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Machine‑learning pipeline to classify cancer vs. healthy samples using gene expression profiles.
 
+---
+
 ## 🚀 Project Overview
 
-**Gene Expression Cancer Detection** is a machine‑learning pipeline that classifies samples as “cancer” vs. “healthy” (or cancer subtypes) based on genome‑wide expression profiles. This end‑to‑end project covers data acquisition, preprocessing, exploratory analysis, model training, evaluation, and interpretability.
+**Gene Expression Cancer Detection** is an end-to-end workflow that acquires, preprocesses, and analyzes transcriptomic data to train and interpret classification models distinguishing cancerous from normal tissue (or subtypes).
 
 ---
 
@@ -19,11 +20,11 @@ Machine‑learning pipeline to classify cancer vs. healthy samples using gene ex
 4. [Project Structure](#project-structure)
 5. [Workflow & Methodology](#workflow--methodology)
 
-   * 5.1 [Data Acquisition](#data-acquisition)
-   * 5.2 [Preprocessing](#preprocessing)
-   * 5.3 [Exploratory Data Analysis](#exploratory-data-analysis)
-   * 5.4 [Modeling](#modeling)
-   * 5.5 [Evaluation & Interpretation](#evaluation--interpretation)
+   * [Data Acquisition](#data-acquisition)
+   * [Preprocessing](#preprocessing)
+   * [Exploratory Data Analysis](#exploratory-data-analysis)
+   * [Modeling](#modeling)
+   * [Evaluation & Interpretation](#evaluation--interpretation)
 6. [Results](#results)
 7. [Usage](#usage)
 8. [Contributing](#contributing)
@@ -34,35 +35,36 @@ Machine‑learning pipeline to classify cancer vs. healthy samples using gene ex
 
 ## Background & Motivation
 
-Cancer is characterized by aberrant gene expression patterns. By leveraging high‑throughput transcriptomics (e.g., microarray or RNA‑Seq), we can train predictive models that distinguish cancerous vs. normal tissue—or even specific tumor subtypes. This workflow aims to:
+Cancer manifests through altered gene expression patterns. Leveraging high‑throughput transcriptomics (microarray or RNA‑Seq), this project uses machine learning to:
 
 * Demonstrate bioinformatics preprocessing best practices
-* Compare various classification algorithms on high‑dimensional data
-* Identify the top genes driving the model via interpretability tools
+* Compare classification algorithms on high-dimensional data
+* Identify key predictive genes via model interpretability tools
 
 ---
 
 ## Data Sources
 
 * **GEO Dataset GSE2034** – Breast cancer microarray profiles (recurrence vs. non‑recurrence)
-* **TCGA** (optional) – Download RNA‑Seq expression for multiple cancer types via the GDC portal
-* Raw files in `data/raw/` and processed CSVs in `data/processed/`
+* **TCGA** (optional) – RNA‑Seq expression for various cancer types via the GDC portal
+* Raw files stored in `data/raw/`, processed CSVs in `data/processed/`
 
 ---
 
 ## Installation
 
-1. **Clone the repo**  
+1. **Clone the repo**
+
    ```bash
    git clone https://github.com/Ismat-Samadov/gene-cancer-detection.git
    cd gene-cancer-detection
-
+   ```
 
 2. **Create a conda environment**
 
    ```bash
-  conda env create -f environment.yml
-  conda activate gene-cancer-detection
+   conda env create -f environment.yml
+   conda activate gene-cancer-detection
    ```
 
 3. **Install Python dependencies**
@@ -76,10 +78,10 @@ Cancer is characterized by aberrant gene expression patterns. By leveraging high
 ## Project Structure
 
 ```
-gene-cancer-detect/
+gene-cancer-detection/
 ├── data/
 │   ├── raw/                  # Original downloaded datasets
-│   └── processed/            # Normalized & cleaned CSVs
+│   └── processed/            # Cleaned & normalized CSVs
 ├── notebooks/                # Jupyter notebooks for each step
 │   ├── 1_data_acquisition.ipynb
 │   ├── 2_preprocessing.ipynb
@@ -87,14 +89,14 @@ gene-cancer-detect/
 │   ├── 4_modeling.ipynb
 │   └── 5_interpretation.ipynb
 ├── src/
-│   ├── data_loader.py        # Functions to fetch & load GEO/TCGA
-│   ├── preprocessing.py      # Normalization, filtering, scaling
-│   └── modeling.py           # Model training & evaluation routines
-├── app/                      # (Optional) Streamlit app for predictions
-├── environment.yml           # Conda environment specification
+│   ├── data_loader.py        # Functions to fetch & load GEO/TCGA data
+│   ├── preprocessing.py      # Normalization, filtering, scaling routines
+│   └── modeling.py           # Model training & evaluation pipelines
+├── app/                      # (Optional) Streamlit app for live predictions
+├── environment.yml           # Conda environment spec
 ├── requirements.txt          # Pip dependencies
-├── README.md                 # Detailed project overview
-└── LICENSE
+├── README.md                 # Project overview & instructions
+└── LICENSE                   # MIT license
 ```
 
 ---
@@ -108,57 +110,41 @@ gene-cancer-detect/
 
 ### Preprocessing
 
-1. **Quality Control:** Remove low‑variance genes
+1. **Quality Control:** Remove low-variance genes
 2. **Normalization:** Log2 transform & quantile normalization
-3. **Scaling:** Standardize features (z‑score)
-4. **Train/Test Split:** Stratified split (e.g., 80/20)
+3. **Scaling:** Standardize features (z-score)
+4. **Train/Test Split:** Stratified 80/20 split
 
 ### Exploratory Data Analysis
 
-* **PCA/t‑SNE:** Visualize sample clustering (cancer vs. healthy)
-* **Boxplots/Violin plots:** Compare expression distributions for top genes
+* **PCA/t-SNE:** Visualize sample clusters (cancer vs. normal)
+* **Boxplots & Violin plots:** Compare expression distributions for top genes
 
 ### Modeling
 
-* **Dimensionality Reduction:**
-
-  * Univariate feature selection (SelectKBest)
-  * PCA (optional)
-* **Classification Algorithms:**
-
-  * Logistic Regression
-  * Random Forest
-  * Support Vector Machine
-  * XGBoost
-* **Hyperparameter Tuning:** GridSearchCV with 5‑fold CV
+* **Dimensionality Reduction:** SelectKBest, PCA (optional)
+* **Algorithms:** Logistic Regression, Random Forest, SVM, XGBoost
+* **Hyperparameter Tuning:** GridSearchCV with 5-fold cross-validation
 
 ### Evaluation & Interpretation
 
-* **Metrics:** Accuracy, Precision, Recall, F1, ROC‑AUC
-* **Confusion Matrix & ROC Curve**
-* **Interpretability:**
-
-  * Feature importance (tree‑based)
-  * **SHAP** values to identify top predictive genes
+* **Metrics:** Accuracy, Precision, Recall, F1-score, ROC-AUC
+* **Visualization:** Confusion matrix, ROC curve
+* **Interpretability:** Feature importance & SHAP summary plots
 
 ---
 
 ## Results
 
-* **Best Model:** XGBoost with ROC‑AUC of 0.92 on test set
-* **Top 10 Genes:** List and brief biological annotations
-* **Visualizations:**
-
-  * ROC curve
-  * SHAP summary plot
-
-*(Full plots and tables are available in `notebooks/5_interpretation.ipynb`.)*
+* **Best Model:** XGBoost achieving ROC-AUC of \~0.92 on the test set
+* **Top Predictive Genes:** Listed with brief biological context
+* **Visual Summaries:** ROC curve, SHAP plots available in `notebooks/5_interpretation.ipynb`
 
 ---
 
 ## Usage
 
-1. **Run the main notebook**
+1. **Run the modeling notebook**
 
    ```bash
    jupyter notebook notebooks/4_modeling.ipynb
@@ -171,17 +157,17 @@ gene-cancer-detect/
    streamlit run app.py
    ```
 
-   * Input your own gene‑expression CSV
-   * Get instant prediction and feature contribution
+   * Upload your gene-expression CSV to get predictions and feature contributions
 
 ---
 
 ## Contributing
 
-1. Fork the repo
-2. Create a feature branch (`git checkout -b feature/xyz`)
-3. Commit your changes & push (`git push origin feature/xyz`)
-4. Open a Pull Request
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/xyz`
+3. Commit your changes: `git commit -m "Add feature xyz"`
+4. Push to your branch: `git push origin feature/xyz`
+5. Open a Pull Request
 
 ---
 
@@ -193,6 +179,6 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 
 ## References
 
-* Rhodes et al., “Large‑scale meta‑analysis of breast cancer recurrence” (GSE2034)
-* Pedregosa et al., “Scikit‑learn: Machine Learning in Python” (JMLR, 2011)
-* Lundberg & Lee, “A Unified Approach to Interpreting Model Predictions” (NIPS, 2017)
+* Rhodes et al., *Large‑scale meta‑analysis of breast cancer recurrence* (GSE2034)
+* Pedregosa et al., *Scikit‑learn: Machine Learning in Python* (JMLR, 2011)
+* Lundberg & Lee, *A Unified Approach to Interpreting Model Predictions* (NIPS, 2017)
